@@ -59,7 +59,7 @@ bangalorePrefix = '(080)'
 # If the prefix for the phone number set as the caller starts with (080) we want the log
 # If not, we want to drop that line.
 
-
+# This will be O(1)
 def identifyCaller(caller):
     """"
     Whenever we look at a number, we want to quickly identify what kind of number it is.
@@ -81,6 +81,7 @@ mobilePrefixes = []
 telemarketingPrefixes = []
 unknownPrefixes = []
 
+# This will be O(n)
 for call in calls:
     # Quickly drop of if call is not from bangalore
     if not call[0].startswith(bangalorePrefix):
@@ -99,11 +100,11 @@ for call in calls:
     else:
         unknownPrefixes.append(called)
 
-# Add all the prefix to the list in chunks.
+# Add all the prefix to the list in chunks. Extend is O(k) according to https://wiki.python.org/moin/TimeComplexity
 allPrefixes.extend([*landlinePrefixes, *mobilePrefixes, *telemarketingPrefixes, *unknownPrefixes])
 
 # The list should already be partially ordered since we placed the info in chunks instead of randomly.
-# This could potentially speed up the next sorting algorithm
+# This could potentially speed up the next sorting algorithm. Worst case O(n log n)
 sortedPrefixes = sorted(allPrefixes, key=lambda x: x[0])
 
 
@@ -118,6 +119,10 @@ for prefix in sortedPrefixes:
 totalLandlineCallsFromBangalore = len(landlinePrefixes)
 landlineCallsFromBangaloreToBangalore = 0
 
+# This will be O(n), but something tells me I could solve this problem by looking at the first iteration in the sorted
+# Array, then start counting, then stop counting at the last iteration.
+# Since values are already organised, I could reduce the amount of work by not even trying to loop through data I know
+# It is not going to be what I want.
 for call in landlinePrefixes:
     if call.startswith(bangalorePrefix):
         landlineCallsFromBangaloreToBangalore += 1
@@ -128,4 +133,5 @@ message = "{percentage:.2f} percent of calls from fixed lines in Bangalore are c
 
 print(message.format(percentage=percentageFromBangaloreToBangalore))
 
-
+# Final simplified time complexity:
+# O(n)
