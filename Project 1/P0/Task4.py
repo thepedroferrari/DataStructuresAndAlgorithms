@@ -63,8 +63,11 @@ for text in texts:
     textSenders.add(text[0])
     textReceivers.add(text[1])
 
+# Sort it so it becomes in the order we want the output to be in. This will be O(n log n)
+sortedCallMakers = sorted(callMakers, key=lambda x: x[0])
+
 print("These numbers could be telemarketers: ")
-for call in callMakers:
+for call in sortedCallMakers:
     # We are looking here at a quadratic operation O(n2)
     if call in callReceivers or call in textReceivers or call in textSenders:
         # We do not actually need to do this step and then loop again. The task does not ask me to save the set.

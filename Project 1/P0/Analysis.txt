@@ -1,0 +1,20 @@
+Following what I could find in https://wiki.python.org/moin/TimeComplexity:
+I have never written in Python before, so I am probably making mistakes here and there.
+
+Task 0: We do not perform any iterations. The only method called is len() which is O(1). The simplified order of this
+task is O(1).
+
+Task 1: The function accepts one array of arrays as a parameter, but only checks for index 0 and 1.
+The checks are x in y which the order is O(n), for both checks that. Since we check for an O(n) operation inside a loop
+I believe this solution is going to be O(n²). If used sets instead, we would be looking at a O(n).
+
+Task 2: We use some O(1) methods, but it falls into the same category as the previous task.
+We are looping through an array, and for each iteration we are checking if the item exists in another place. This could
+potentially become O(n²).
+
+Task 3: We are using a sorting algorithm which is O(n log n), but we are also looping through lists, giving it a O(n)
+case order. We perform multiple separated O(n) operations, but the simplified analysis is O(n).
+
+Task 4: in this one we perform first a O(n) operation by looping through all calls and texts and creating the sets.
+The sets will help reduce the amount of iterations further down, but we still need to check for item in set, inside of
+a list iteration, giving this task an order of O(n²)

@@ -59,6 +59,7 @@ bangalorePrefix = '(080)'
 # If the prefix for the phone number set as the caller starts with (080) we want the log
 # If not, we want to drop that line.
 
+
 # This will be O(1)
 def identifyCaller(caller):
     """"

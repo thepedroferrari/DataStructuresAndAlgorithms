@@ -73,21 +73,20 @@ Print a message:
 # Calculating O:
 # Input for this function will be n number of arrays.
 # for every array, we will iterate n number of times
-# every time we iterate, we will perform two comparisons and at most two more operations
+# every time we iterate, we will perform two comparisons and at most two more O(n) operations
 # There are two for loops operations, that for this exercise I will count each of them as 1 operation
 # we declare one list and print at the end with len operation
-# in this scope where we have two arrays to work with, we will have:
-# two arrays + n iterations per array + 8 operations at most.
-# O(2n + 8).
-def getListOfUniqueValuesFromListsOfLists(arrays):
+# this should be O(n²) and could possibly be made better by using sets.
+
+def getListOfUniqueValuesFromListsOfLists(arr1, arr2):
+    arrays = [*arr1, *arr2]
     uniqueValues = []
-    for arr in arrays:
-        for item in arr:
-            if not item[0] in uniqueValues:
-                uniqueValues.append(item[0])
-            if not item[1] in uniqueValues:
-                uniqueValues.append(item[1])
+    for item in arrays:
+        if not item[0] in uniqueValues:
+            uniqueValues.append(item[0])
+        if not item[1] in uniqueValues:
+            uniqueValues.append(item[1])
     return "There are " + str(len(uniqueValues)) + " different telephone numbers in the records."
 
 
-print(getListOfUniqueValuesFromListsOfLists([calls, texts]))
+print(getListOfUniqueValuesFromListsOfLists(calls, texts))
