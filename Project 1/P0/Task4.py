@@ -50,5 +50,27 @@ The list of numbers should be print out one per line in lexicographic order with
 # Print message
 # Loop through A and print each of the remaining numbers one by one.
 
+callMakers = set()
+callReceivers = set()
+textReceivers = set()
+textSenders = set()
 
+for call in calls:
+    callMakers.add(call[0])
+    callReceivers.add(call[1])
+
+for text in texts:
+    textSenders.add(text[0])
+    textReceivers.add(text[1])
+
+print("These numbers could be telemarketers: ")
+for call in callMakers:
+    # We are looking here at a quadratic operation O(n2)
+    if call in callReceivers or call in textReceivers or call in textSenders:
+        # We do not actually need to do this step and then loop again. The task does not ask me to save the set.
+        # we could just print the message before and in the else here we could print the number. Lets do that instead.
+        # callMakers.remove(call)
+        continue
+    else:
+        print(call)
 
