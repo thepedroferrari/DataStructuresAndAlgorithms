@@ -64,7 +64,8 @@ for text in texts:
     textReceivers.add(text[1])
 
 # Sort it so it becomes in the order we want the output to be in. This will be O(n log n)
-sortedCallMakers = sorted(callMakers, key=lambda x: x[0])
+# Removing the lambda function since we want all digits to be sorted.
+sortedCallMakers = sorted(callMakers)
 
 print("These numbers could be telemarketers: ")
 for call in sortedCallMakers:

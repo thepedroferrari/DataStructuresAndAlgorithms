@@ -114,7 +114,10 @@ allPrefixes.update(mobilePrefixes, landlinePrefixes, telemarketingPrefixes, unkn
 
 # The list should already be partially ordered since we placed the info in chunks instead of randomly.
 # This could potentially speed up the next sorting algorithm. Worst case O(n log n)
-sortedPrefixes = sorted(allPrefixes, key=lambda x: x[0])
+# Udacity Feedback:
+# key=lambda x: x[0] was causing an issue
+# "This key means to sort the items based on their first digit only and the other digits are randomly sorted. "
+sortedPrefixes = sorted(allPrefixes)
 
 
 print("The numbers called by people in Bangalore have codes:")
