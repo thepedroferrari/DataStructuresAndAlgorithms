@@ -89,16 +89,25 @@ def getLongestCallFromCallList(callList):
         else:
             uniqueNumbers[call[1]] = time
 
-    largestAmount = ['', 0]
-    for key, value in uniqueNumbers.items():
-        if value > largestAmount[1]:
-            largestAmount[0] = key
-            largestAmount[1] = value
+    # largestAmount = ['', 0]
+    # for key, value in uniqueNumbers.items():
+    #     if value > largestAmount[1]:
+    #         largestAmount[0] = key
+    #         largestAmount[1] = value
+    #
+    # return largestAmount[0] + " spent the longest time, " + str(largestAmount[1]) + " seconds, on the phone during September 2016."
 
-    return largestAmount[0] + " spent the longest time, " + str(largestAmount[1]) + " seconds, on the phone during September 2016."
+    # Udacity Suggestion: Using max() and get(), O(n) and O(1) respectively, instead of loop/check/update.
+    # Based on https://www.geeksforgeeks.org/python-get-key-with-maximum-value-in-dictionary/
+    longestCaller = max(uniqueNumbers, key=lambda x: uniqueNumbers[x])
+    longestTime = uniqueNumbers.get(longestCaller)
+
+    return longestCaller + " spent the longest time, " + str(
+        longestTime) + " seconds, on the phone during September 2016."
 
 
 print(getLongestCallFromCallList(calls))
+
 
 # Should fail with message:
 # print(getLongestCallFromCallList([[1, 2, 3]]))

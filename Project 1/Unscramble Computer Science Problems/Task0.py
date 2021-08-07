@@ -32,20 +32,25 @@ Print messages:
 
 
 def getFirstTextAndLastCall():
-    first_text = texts[0]
-    last_call = calls[len(calls) - 1]
-    print("First record of texts, " + first_text[0] + " texts " + first_text[1] + " at time " + first_text[2])
-    print(
-        "Last record of calls, " +
-        last_call[0] +
-        " calls " +
-        last_call[1] +
-        " at time " +
-        last_call[2] +
-        " lasting " +
-        last_call[3] +
-        " seconds"
-    )
+    # first_text = texts[0]
+    # last_call = calls[len(calls) - 1]
+    # print("First record of texts, " + first_text[0] + " texts " + first_text[1] + " at time " + first_text[2])
+    # print(
+    #     "Last record of calls, " +
+    #     last_call[0] +
+    #     " calls " +
+    #     last_call[1] +
+    #     " at time " +
+    #     last_call[2] +
+    #     " lasting " +
+    #     last_call[3] +
+    #     " seconds"
+    # )
+
+    # Udacity Feedback:
+    # Suggestion / Learning: inline print. Interesting!
+    print(f"First record of texts, {texts[0][0]} texts {texts[0][1]} at time {texts[0][2]}.")
+    print(f"Last record of calls, {calls[-1][0]} calls {calls[-1][1]} at time {calls[-1][2]}, lasting {calls[-1][3]} seconds.")
 
 
 getFirstTextAndLastCall()

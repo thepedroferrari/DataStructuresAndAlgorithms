@@ -76,11 +76,13 @@ def identifyCaller(caller):
         return "telemarketer"
 
 
-allPrefixes = []
-landlinePrefixes = []
-mobilePrefixes = []
-telemarketingPrefixes = []
-unknownPrefixes = []
+allPrefixes = set()
+landlinePrefixes = set()
+mobilePrefixes = set()
+telemarketingPrefixes = set()
+unknownPrefixes = set()
+quantityCallsFromBangalore = 0
+quantityCallsFromBangaloreToBangalore = 0
 
 # This will be O(n)
 for call in calls:
@@ -88,21 +90,27 @@ for call in calls:
     if not call[0].startswith(bangalorePrefix):
         continue
 
+    quantityCallsFromBangalore += 1
     called = call[1]
     identity = identifyCaller(called)
 
     # Hydrate the lists with the called number prefix
     if identity == 'landline':
-        landlinePrefixes.append(called[0:called.index(')') + 1])
-    elif identity == 'mobile':
-        mobilePrefixes.append(called[0:called.index(' ')])
-    elif identity == 'telemarketer':
-        telemarketingPrefixes.append("140")
-    else:
-        unknownPrefixes.append(called)
+        landlinePrefixes.add(called[1:called.index(')')])
+        if called.startswith(bangalorePrefix):
+            quantityCallsFromBangaloreToBangalore += 1
 
-# Add all the prefix to the list in chunks. Extend is O(k) according to https://wiki.python.org/moin/TimeComplexity
-allPrefixes.extend([*landlinePrefixes, *mobilePrefixes, *telemarketingPrefixes, *unknownPrefixes])
+    elif identity == 'mobile':
+        mobilePrefixes.add(called[0:4])
+    elif identity == 'telemarketer':
+        telemarketingPrefixes.add("140")
+    else:
+        unknownPrefixes.add(called)
+
+# Update has a complexity of O(n), but we're dealing with a minimized set of data at this point
+# Updating Sets approach found at https://www.pythonpool.com/learn-how-to-combine-sets-in-python/
+allPrefixes.update(mobilePrefixes, landlinePrefixes, telemarketingPrefixes, unknownPrefixes)
+
 
 # The list should already be partially ordered since we placed the info in chunks instead of randomly.
 # This could potentially speed up the next sorting algorithm. Worst case O(n log n)
@@ -115,20 +123,7 @@ for prefix in sortedPrefixes:
 
 
 # Part B
-# We are going to partially repeat the first step now using the landlinePrefixes list.
-
-totalLandlineCallsFromBangalore = len(landlinePrefixes)
-landlineCallsFromBangaloreToBangalore = 0
-
-# This will be O(n), but something tells me I could solve this problem by looking at the first iteration in the sorted
-# Array, then start counting, then stop counting at the last iteration.
-# Since values are already organised, I could reduce the amount of work by not even trying to loop through data I know
-# It is not going to be what I want.
-for call in landlinePrefixes:
-    if call.startswith(bangalorePrefix):
-        landlineCallsFromBangaloreToBangalore += 1
-
-percentageFromBangaloreToBangalore = landlineCallsFromBangaloreToBangalore / totalLandlineCallsFromBangalore * 100
+percentageFromBangaloreToBangalore = quantityCallsFromBangaloreToBangalore / quantityCallsFromBangalore * 100
 message = "{percentage:.2f} percent of calls from fixed lines in Bangalore are calls to other fixed lines in Bangalore."
 
 
@@ -136,3 +131,4 @@ print(message.format(percentage=percentageFromBangaloreToBangalore))
 
 # Final simplified time complexity:
 # O(n)
+

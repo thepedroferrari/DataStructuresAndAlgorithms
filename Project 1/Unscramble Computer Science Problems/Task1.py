@@ -78,15 +78,37 @@ Print a message:
 # we declare one list and print at the end with len operation
 # this should be O(n²) and could possibly be made better by using sets.
 
+# def getListOfUniqueValuesFromListsOfLists2(arr1, arr2):
+#     arrays = [*arr1, *arr2]
+#     uniqueValues = []
+#     for item in arrays:
+#         if not item[0] in uniqueValues:
+#             uniqueValues.append(item[0])
+#         if not item[1] in uniqueValues:
+#             uniqueValues.append(item[1])
+#     return "There are " + str(len(uniqueValues)) + " different telephone numbers in the records."
+#
+#
+# print(getListOfUniqueValuesFromListsOfLists2(calls, texts))
+
+# Udacity Feedback:
+# Learned: If-in on sets and dictionaries are O(1), not O(n) since they use HashMapping. Which makes sense since no
+# loop is needed to find the value I am searching for. Same should go for list[index].
+# Then, it is better to create a set for the numbers in the two lists.
+# This will give us a O(2n) operation, simplified to O(n)
+
 def getListOfUniqueValuesFromListsOfLists(arr1, arr2):
-    arrays = [*arr1, *arr2]
-    uniqueValues = []
-    for item in arrays:
-        if not item[0] in uniqueValues:
-            uniqueValues.append(item[0])
-        if not item[1] in uniqueValues:
-            uniqueValues.append(item[1])
-    return "There are " + str(len(uniqueValues)) + " different telephone numbers in the records."
+    uniqueTelephoneNumbers = set()
+
+    for entry in arr1:
+        uniqueTelephoneNumbers.add(entry[0])
+        uniqueTelephoneNumbers.add(entry[1])
+    for entry in arr2:
+        uniqueTelephoneNumbers.add(entry[0])
+        uniqueTelephoneNumbers.add(entry[1])
+
+    return uniqueTelephoneNumbers
 
 
-print(getListOfUniqueValuesFromListsOfLists(calls, texts))
+uniqueNumbers = getListOfUniqueValuesFromListsOfLists(calls, texts)
+print("There are {} different telephone numbers in the records.".format(len(uniqueNumbers)))
