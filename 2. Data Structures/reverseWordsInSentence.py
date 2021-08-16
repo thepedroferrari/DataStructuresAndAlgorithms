@@ -20,6 +20,13 @@ def word_flipper(our_string):
     """
 
     # TODO: Write your solution here
-    strArr = our_string.split(" ")
+    wordsArr = our_string.split(" ")
+    flippedWords = ""
+    for word in wordsArr:
+        flippedWords += string_reverser(word) + " "
 
+    return flippedWords.strip()
     pass
+
+
+print(word_flipper("our string"))
